@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Backbone_mvc</title>
+	<link rel="stylesheet" type="text/css" href="css/product.css">
+</head>
+<body>
+	<script type="text/x-handlebars-template" id="tmpl">
+		<div>
+			<span>{{name}}</span>
+			<span class={{#if done}}done{{/if}}>{{#if done}}已售完{{/if}}</span>	
+		</div>
+		<input type="checkbox" {{#if done}}checked{{/if}}/>
+	</script>
+	<script type="text/javascript" data-main='js/backbone_mvc.js' src='lib/require.js'></script>
+</body>
+</html>

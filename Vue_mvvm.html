@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>VueJS_mvvm</title>
+	<link rel="stylesheet" type="text/css" href="css/product.css">
+</head>
+<body>
+	<div id="product">
+		<div>
+			<product name={{product.name}} done={{product.done}}></product>
+			<input type="checkbox" checked="{{product.done?'checked':''}}" v-on='click:changeHandle'/>
+		</div>
+	</div>
+	<script type="text/x-handlebars-template" id="tmpl">
+    <span v-text='name'></span>
+		<span class={{done?'done':''}}>{{done?'已售完':''}}</span>	
+		<br/>
+	</script>
+	<script type="text/javascript" data-main='js/vuejs_mvvm.js' src='lib/require.js'></script>
+</body>
+</html>

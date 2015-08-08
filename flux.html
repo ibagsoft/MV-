@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React_mvc</title>
+	<link rel="stylesheet" type="text/css" href="css/product.css">
+</head>
+<body>
+	<script type="text/javascript" src='lib/react.js'></script>
+	<script type="text/javascript" src='lib/JSXtransformer.js'></script>
+	<script type="text/javascript" src='lib/flux-react.js'></script>
+	<script type="text/jsx">
+		var actions = flux.createActions(['changeHandle']);
+		var store = flux.createStore({
+			product:{
+				name:'Web MVC',
+				done:true
+			},
+			actions:[actions.changeHandle],
+			changeHandle:function(value) {
+				this.product.done = value;
+				store.emit('saled');
+			},
+			exports:{
+				getProduct:function() {
+					return this.product;
+				}
+			}
+		});
+		var Product = React.createClass({
+			componentWillMount:function() {
+				store.on('saled',this.update);
+			},
+			componentWillUnmount: function () {
+        store.off('saled',this.update);
+      },
+			update:function() {
+				this.setState({product:store.getProduct()});
+			},
+			getInitialState:function() {
+				return{
+					product:store.getProduct()
+				}
+			},
+			changeHandle:function(e) {
+				actions.changeHandle(!this.state.product.done);
+			},
+			render:function() {
+				var done = this.state.product.done;
+				return <div>
+					<span>{this.state.product.name}</span>
+					<span className={done?'done':''}>{done?'已售完':''}</span>
+					<br/>
+					<input type="checkbox" checked={done} onClick={this.changeHandle}/>
+				</div>
+			}
+		});
+		React.render(<Product/>,document.body);
+	</script>
+</body>
+</html>

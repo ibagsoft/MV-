@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS_mvc</title>
+    <link rel="stylesheet" type="text/css" href="css/product.css">
+</head>
+
+<body ng-app='app'>
+    <div ng-controller='ProductCtrl'>
+        <span ng-bind='product.name'></span>
+        <span class={{product.done?'done':''}}>{{product.done?'已经售完':''}}</span>
+        <p><input type="checkbox" ng-model='product.done' /></p>
+    </div>
+    <script type="text/javascript" data-main='js/angularjs_mvc.js' src='lib/require.js'></script>
+</body>
+
+</html>

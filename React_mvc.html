@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>React_mvc</title>
+	<link rel="stylesheet" type="text/css" href="css/product.css">
+</head>
+<body>
+	<script type="text/javascript" src='lib/jquery.js'></script>
+	<script type="text/javascript" src='lib/react.js'></script>
+	<script type="text/javascript" src='lib/JSXtransformer.js'></script>
+	<script type="text/jsx">
+		var Product = React.createClass({
+			getInitialState:function() {
+				return {
+					product:this.props.model
+				}
+			},
+			componentWillMount:function() {
+				$(this.state.product).bind('change', this.update);
+			},
+			update:function() {
+				this.setState({product:this.props.model});
+			},
+			render:function() {
+				var done = this.state.product.done;
+				return <div>
+					<span>{this.state.product.name}</span>
+					<span className={done?'done':''}>{done?'已售完':''}</span>
+					<br/>
+					<input type="checkbox" checked={done} onClick={this.props.controller.changeHandle}/>
+				</div>
+			}
+		});
+		var product = {name:'Web MVC',done:false};
+		var controller = {
+			changeHandle:function() {
+				product.done = !product.done;
+				$(product).trigger('change');
+			}
+		};
+		var view = {
+			init:function() {
+				React.render(<Product model={product} controller={controller}/>,document.body);
+			}
+		}
+
+		var app = {
+			model:product,
+			controller:controller,
+			view:view
+		}
+		
+		app.view.init();
+	</script>
+</body>
+</html>
